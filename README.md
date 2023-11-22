@@ -1,75 +1,18 @@
-# Nuxt 3 Minimal Starter
+# nuxt-props-with-global-types
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This repo shows that types auto imported by nuxt can't be used for defining components' props (without importing them explicitly, for example from `#imports`). In fact it's even worse - they can be used, we don't get any ts errors, it just doesn't seem to work. It loks that it fails silently.
 
-## Setup
+What is more, it also presents that globally available types **can be used for defining props**, just not if they are made available globally the way it is currently done in Nuxt.
 
-Make sure to install the dependencies:
+See https://github.com/DawidKopys/vue-props-with-global-types#readme for more details. Nuxt uses approach 1 from this readme.
+Component `CompUsingGlobalType2.vue` uses global type defined with approach 2 and it seems to be working correctly.
 
-```bash
-# npm
-npm install
+## To reproduce:
 
-# pnpm
-pnpm install
+1. clone this repo
+2. `npm i`
+3. `npm run type-check`
 
-# yarn
-yarn install
+**Expected result**: we get typescript error in App.vue in place of using CompUsingGlobalType1 as we are passing number instead of string to its prop `foo.bar`.
 
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+**Actual result**: there is no typescript error in above place.
